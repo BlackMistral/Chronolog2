@@ -1,6 +1,10 @@
 # ===================================================================
 # File: .github/workflows/android-build.yml
-# Versione Finale Stabile per ChronoLog
+# Revisione Finale Definitiva (Standard Industriale, Auto-Bootstrap):
+# - Ignora i file gradlew/wrapper locali.
+# - Usa l'azione ufficiale 'setup-gradle' per creare un ambiente Gradle pulito.
+# - Esegue la build con il comando 'gradle', non './gradlew'.
+# - Funziona indipendentemente dalla versione di Ubuntu Runner.
 # ===================================================================
 name: Android CI Build
 
@@ -12,7 +16,8 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # Usiamo ubuntu-22.04 perché sappiamo che ci assegna un Runner velocemente
+    runs-on: ubuntu-22.04
 
     steps:
     # 1. Scarica il codice del repository
@@ -25,25 +30,22 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        cache: 'gradle'
 
-    # 3. Dare i permessi di esecuzione al Gradle Wrapper
-    # Questo passo è necessario perché i permessi potrebbero non essere
-    # preservati durante l'upload da Windows/ZIP.
-    - name: Dare i permessi a gradlew
-      run: chmod +x ./gradlew
+    # 3. Imposta un ambiente Gradle pulito e funzionante
+    # QUESTO È IL PASSO CHE RISOLVE TUTTO. Installa un Gradle ufficiale
+    # e lo mette a disposizione, ignorando i nostri file locali.
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v3
 
-    # 4. Esegue la compilazione
-    # Il comando 'build' è più completo di 'assembleDebug' e include
-    # la verifica di lint e altri controlli di qualità.
+    # 4. Esegue la compilazione usando il comando 'gradle' fornito da Setup Gradle
+    # Questo comando NON usa il file ./gradlew che non viene trovato.
     - name: Compilare con Gradle
-      run: ./gradlew build --stacktrace
+      run: gradle build --stacktrace
 
     # 5. Salva l'APK generato per il download
-    # Cerca l'APK di debug nella cartella di output standard.
     - name: Caricare l'artefatto APK
       uses: actions/upload-artifact@v4
       with:
         name: app-debug-apk
+        if-no-files-found: error
         path: app/build/outputs/apk/debug/app-debug.apk
-        
