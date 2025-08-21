@@ -1,9 +1,3 @@
-# ===================================================================
-# File: .github/workflows/android-build.yml
-# Revisione Finale (Build Stabile e Riproducibile)
-# - Blocca la versione di Gradle a 8.6 per evitare instabilità.
-# - Mantiene l'approccio robusto che usa 'gradle' invece di './gradlew'.
-# ===================================================================
 name: Android CI Build
 
 on:
@@ -25,15 +19,17 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
+        cache: 'gradle'
 
-    - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@v3
-      with:
-        # Blocchiamo la versione per garantire una build stabile e riproducibile
-        gradle-version: 8.6
+    - name: Dare i permessi a gradlew
+      run: chmod +x ./gradlew
+
+    # === NUOVO PASSO DI PULIZIA ===
+    - name: Pulisci la Build (Clean Build)
+      run: ./gradlew clean --stacktrace
 
     - name: Compilare con Gradle
-      run: gradle build --stacktrace
+      run: ./gradlew build --stacktrace
 
     - name: Caricare l'artefatto APK
       uses: actions/upload-artifact@v4
