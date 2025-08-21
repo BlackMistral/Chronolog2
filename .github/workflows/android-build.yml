@@ -6,46 +6,43 @@
 # - Esegue la build con il comando 'gradle', non './gradlew'.
 # - Funziona indipendentemente dalla versione di Ubuntu Runner.
 # ===================================================================
-name: Android CI Build
+name: Android CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main, develop ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ main, develop ]
 
 jobs:
   build:
-    # Usiamo ubuntu-22.04 perché sappiamo che ci assegna un Runner velocemente
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
-    # 1. Scarica il codice del repository
-    - name: Checkout del codice
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-    # 2. Imposta l'ambiente Java (JDK 17)
-    - name: Impostazione di JDK 17
+    - name: Set up JDK 17
       uses: actions/setup-java@v4
       with:
         java-version: '17'
-        distribution: 'temurin'
+        distribution: 'temurin''temurin''temurin''temurin''temurin''temurin''temurin''temurin'
+        cache: gradle
 
-    # 3. Imposta un ambiente Gradle pulito e funzionante
-    # QUESTO È IL PASSO CHE RISOLVE TUTTO. Installa un Gradle ufficiale
-    # e lo mette a disposizione, ignorando i nostri file locali.
-    - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@v3
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
 
-    # 4. Esegue la compilazione usando il comando 'gradle' fornito da Setup Gradle
-    # Questo comando NON usa il file ./gradlew che non viene trovato.
-    - name: Compilare con Gradle
-      run: gradle build --stacktrace
+    - name: Build with Gradle
+      run: ./gradlew build
 
-    # 5. Salva l'APK generato per il download
-    - name: Caricare l'artefatto APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: app-debug-apk
-        if-no-files-found: error
-        path: app/build/outputs/apk/debug/app-debug.apk
+    - name: Run tests
+      run: ./gradlew test
+
+    # You can add more steps here, for example:
+    # - name: Build Release APK
+    #   run: ./gradlew assembleRelease
+    #
+    # - name: Upload artifact
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: app-release
+    #     path: app/build/outputs/apk/release/app-release.apk
