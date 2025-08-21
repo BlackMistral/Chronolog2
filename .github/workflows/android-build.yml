@@ -1,66 +1,62 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+# ===================================================================
+# File: .github/workflows/android-build.yml
+# Revisione Finale Definitiva (Generazione Robusta del Wrapper in CI):
+# 1. IGNORA i file gradlew/wrapper locali.
+# 2. GENERA un wrapper completo e funzionante direttamente nell'ambiente
+#    di build usando il comando 'gradle wrapper'.
+# 3. UTILIZZA questo wrapper appena generato per la compilazione.
+# ===================================================================
+name: Android CI Build
 
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
-    <uses-permission
-        android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
-        tools:ignore="ProtectedPermissions" />
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
-    <application
-        android:name=".ChronoLogApp"
-        android:allowBackup="false"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.TrieNotify"
-        tools:replace="android:allowBackup"
-        tools:targetApi="31">
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-        <activity
-            android:name=".ui.MainActivity"
-            android:exported="true"
-            android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data
-                    android:mimeType="application/octet-stream"
-                    android:scheme="content" />
-            </intent-filter>
-        </activity>
+    steps:
+    # 1. Scarica il codice del repository
+    - name: Checkout del codice
+      uses: actions/checkout@v4
 
-        <activity
-            android:name=".ui.SettingsActivity"
-            android:exported="false"
-            android:label="Impostazioni" />
+    # 2. Imposta l'ambiente Java (JDK 17)
+    - name: Impostazione di JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
 
-        <service
-            android:name=".core.NotificationCaptureService"
-            android:exported="true"
-            android:label="ChronoLog Listener"
-            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
-            <intent-filter>
-                <action android:name="android.service.notification.NotificationListenerService" />
-            </intent-filter>
-        </service>
+    # 3. Cache di Gradle (opzionale ma consigliata)
+    - name: Cache Gradle
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
 
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="com.heimdall.chronolog.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
+    # 4. Genera un Gradle Wrapper completo e funzionante
+    # QUESTO È IL PASSO CHE RISOLVE TUTTO.
+    - name: Generate Gradle Wrapper
+      # Usiamo una versione di Gradle compatibile con i nostri file di build
+      run: gradle wrapper --gradle-version 8.2.1
 
-    </application>
-</manifest>
+    # 5. Dare i permessi di esecuzione al Gradle Wrapper appena creato
+    - name: Dare i permessi a gradlew
+      run: chmod +x ./gradlew
+
+    # 6. Esegue la compilazione usando il wrapper appena generato
+    - name: Compilare con Gradle
+      run: ./gradlew build --stacktrace
+
+    # 7. Salva l'APK generato per il download
+    - name: Caricare l'artefatto APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-debug-apk
+        if-no-files-found: error
+        path: app/build/outputs/apk/debug/app-debug.apk
