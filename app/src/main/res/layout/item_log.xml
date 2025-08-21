@@ -1,25 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:background="?android:attr/selectableItemBackground">
+    android:layout_marginHorizontal="4dp"
+    android:layout_marginVertical="6dp"
+    app:cardBackgroundColor="#2C2C2E"
+    app:strokeColor="@color/gray_700"
+    app:strokeWidth="1dp">
 
-    <TextView
-        android:id="@+id/text_view_timestamp"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="?android:attr/textColorSecondary"
-        tools:text="2023-10-27 10:00:00" />
+        android:orientation="vertical"
+        android:padding="12dp">
 
-    <TextView
-        android:id="@+id/text_view_log_message"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        tools:text="This is a sample log message." />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-</LinearLayout>
+            <ImageView
+                android:id="@+id/log_app_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="App icon"
+                tools:src="@drawable/ic_notification_bell" />
+
+            <TextView
+                android:id="@+id/log_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                tools:text="Titolo Notifica" />
+
+            <TextView
+                android:id="@+id/log_timestamp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray_200"
+                android:textSize="12sp"
+                tools:text="23:32:00" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/log_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/gray_200"
+            android:textSize="14sp"
+            tools:text="Questo è il corpo del testo della notifica che può essere anche molto lungo." />
+
+        <TextView
+            android:id="@+id/log_hash"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="monospace"
+            android:gravity="end"
+            android:textColor="@color/gray_700"
+            android:textSize="10sp"
+            tools:text="hash=a1b2c3d4e5f6…" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
