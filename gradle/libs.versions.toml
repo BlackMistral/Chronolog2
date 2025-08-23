@@ -1,0 +1,137 @@
+toml
+[versions]
+# SDK Versions
+android-compileSdk = "34"
+android-minSdk = "28" # Or your desired minimum SDK
+android-targetSdk = "34"
+
+# AndroidX Libraries
+core-ktx = "1.13.1"
+appcompat = "1.7.0"
+material = "1.12.0"
+activity-ktx = "1.9.1"
+biometric = "1.2.0"
+security-crypto = "1.1.0-alpha06"
+datastore-preferences = "1.1.1"
+
+# Other Libraries
+json = "20231013"
+moshi = "1.15.1"
+
+# UI Libraries (existing but potentially updated versions)
+constraintlayout = "2.1.4" # Version from original TOML, check if needed
+recyclerview = "1.3.2"
+
+# Kotlin
+kotlin = "1.9.0" # Use your Kotlin version
+
+# Coroutines
+coroutines = "1.7.3" # Version from original TOML, check if needed
+
+# Lifecycle
+lifecycle = "2.8.4" # Use the latest stable version
+
+# Hilt
+hilt = "2.51.1" # Use the latest stable version
+
+# Room
+room = "2.6.1" # Use the latest stable version
+
+# WorkManager
+work = "2.9.1" # Use the latest stable version
+
+# Google API Client (for Google Drive - specify versions)
+# You need to find the correct versions for the Google Drive API client libraries
+# These are examples, verify the latest recommended versions for Android
+google-api-client-android = "1.6.0"
+google-api-services-drive = "v3-rev20240609-2.0.0"
+play-services-auth = "21.2.0"
+# google-oauth-client-jetty = "1.34.1" # Example, often not needed for Android
+
+# Logging
+timber = "5.0.1" # Version from original TOML, check if needed
+
+# Testing
+junit = "4.13.2" # Version from original TOML, check if needed
+androidx-test-ext-junit = "1.1.5"
+androidx-test-espresso-core = "3.5.1"
+
+[libraries]
+# AndroidX Libraries
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity-ktx" }
+androidx-biometric = { group = "androidx.biometric", name = "biometric", version.ref = "biometric" }
+android-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
+androidx-security-crypto = { group = "androidx.security", name = "security-crypto", version.ref = "security-crypto" }
+
+# Kotlin
+kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
+
+# Coroutines
+kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" } # For testing
+
+# Lifecycle
+androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycle" }
+androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
+
+# Hilt
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
+
+# Room
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+androidx-room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
+
+# WorkManager
+androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "work" }
+androidx-work-hilt = { group = "androidx.work", name = "work-hilt", version.ref = "work" }
+androidx-work-testing = { group = "androidx.work", name = "work-testing", version.ref = "work" } # For testing
+
+# Google API Client (for Google Drive)
+google-play-services-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "play-services-auth" }
+google-api-client-android = { group = "com.google.api-client", name = "google-api-client-android", version.ref = "google-api-client-android" }
+google-api-services-drive = { group = "com.google.apis", name = "google-api-services-drive", version.ref = "google-api-services-drive" }
+# google-oauth-client-jetty = { group = "com.google.oauth-client", name = "google-oauth-client-jetty", version.ref = "google-oauth-client-jetty" } # Example
+
+# Other Libraries
+datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore-preferences" }
+org-json = { group = "org.json", name = "json", version.ref = "json" }
+
+private fun writeIvAndData(outputStream: OutputStream, iv: ByteArray, encryptedData: ByteArray) {
+    outputStream.write(iv)
+    outputStream.write(encryptedData)
+}
+
+private fun readIvAndData(inputStream: InputStream, ivSize: Int): Pair<ByteArray, ByteArray> {
+    val iv = ByteArray(ivSize)
+    val readIv = inputStream.read(iv)
+    if (readIv != ivSize) {
+        throw IOException("Failed to read IV from input stream.")
+    }
+    val encryptedBytes = inputStream.readBytes()
+    return Pair(iv, encryptedBytes)
+}
+# Logging
+timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
+
+# Testing
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
+androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidx-test-espresso-core" }
+
+[bundles]
+# Example bundle for common UI libraries
+androidx-ui = [
+    libs.androidx.core.ktx,
+    libs.androidx.appcompat,
+    libs.android.material,
+    libs.androidx.constraintlayout,

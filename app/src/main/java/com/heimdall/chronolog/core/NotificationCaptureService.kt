@@ -104,6 +104,23 @@ class NotificationCaptureService : NotificationListenerService() {
         private const val CHANNEL_ID = "chronolog_service_channel"
         private const val NOTIFICATION_ID = 1 // Unique ID for the foreground notification
     }
+// In onCreateViewHolder
+val binding = ItemLogBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+return LogEntryViewHolder(binding)
+
+// Nella classe LogEntryViewHolder
+class LogEntryViewHolder(private val binding: ItemLogBinding) : RecyclerView.ViewHolder(binding.root) {
+    // Accedi alle view tramite binding:
+    // private val timestampTextView: TextView = binding.logTimestamp
+    // private val messageTextView: TextView = binding.logText
+    // ... e usa binding.logTimestamp, binding.logText nei metodi
+    private val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()) // Considera di spostare la formattazione
+    fun bind(logEntry: LogEntry) {
+        binding.logTimestamp.text = dateFormat.format(logEntry.timestamp)
+        binding.logText.text = logEntry.message
+        // ...
+    }
+}
 }
 
 

@@ -18,27 +18,6 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun logDao(): LogDao
 
     companion object {
-        @Volatile
-        private var INSTANCE: AppDatabase? = null
-
-        fun getDatabase(context: Context): AppDatabase {
-            // if the INSTANCE is not null, then return it,
-            // if it is, then create the database
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    AppDatabase::class.java,
-                    "chronolog_database"
-                )
-                // Add your database migrations here.
-                .addMigrations(MIGRATION_1_2)
-                .build()
-                INSTANCE = instance
-                // return instance
-                instance
-            }
-        }
-
         // TODO: Implement your Room Migrations here.
         // Example migration from version 1 to 2:
         val MIGRATION_1_2 = object : Migration(1, 2) {
