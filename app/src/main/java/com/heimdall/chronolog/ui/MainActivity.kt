@@ -12,19 +12,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.heimdall.chronolog.R
-import com.heimdall.chronolog.data.AppDatabase
-import com.heimdall.chronolog.data.Repository
 import com.heimdall.chronolog.databinding.ActivityMainBinding
 import com.heimdall.chronolog.databinding.DialogProgressBinding
+import com.heimdall.chronolog.data.Repository
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val mainViewModel: MainViewModel by viewModels {
-        MainViewModelFactory(Repository(AppDatabase.getDatabase(applicationContext).logDao()))
-    }
-
+ }
     private lateinit var logsAdapter: LogsAdapter
     private lateinit var uiStateTextView: TextView // Assuming a TextView to show UI state
 
@@ -56,7 +55,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        uiStateTextView = binding.textViewUiState // Assuming a TextView with this ID in activity_main.xml
+        uiStateTextView = binding.textView // Assuming a TextView with this ID in activity_main.xml
 
         // TODO: Implement logic to switch between LIVE and IMPORTED states and update ViewModel/Repository accordingly
     }
@@ -87,9 +86,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun showClearLogsConfirmationDialog() {
         AlertDialog.Builder(this)
-            .setTitle("Clear Logs")
-            .setMessage("Are you sure you want to clear all log entries? This action cannot be undone.")
-            .setPositiveButton("Clear") { dialog, _ ->
+            .setTitle(R.string.clear_logs_dialog_title)
+            .setMessage(R.string.clear_logs_dialog_message)
+            .setPositiveButton(R.string.clear_logs_dialog_positive_button) { dialog, _ ->
                 mainViewModel.clearAllLogs()
                 dialog.dismiss()
             }
@@ -104,7 +103,7 @@ class MainActivity : AppCompatActivity() {
     private fun showProgressDialog(message: String) {
         if (progressDialog == null) {
             val dialogBinding = DialogProgressBinding.inflate(layoutInflater)
-            dialogBinding.progressMessage.text = message
+            dialogBinding.progressMessage.text = getString(R.string.progress_dialog_loading)
             progressDialog = AlertDialog.Builder(this)
                 .setView(dialogBinding.root)
                 .setCancelable(false)

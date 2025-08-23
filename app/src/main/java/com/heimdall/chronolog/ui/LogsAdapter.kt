@@ -26,8 +26,8 @@ class LogsAdapter : ListAdapter<LogEntry, LogsAdapter.LogEntryViewHolder>(LogEnt
     }
 
     class LogEntryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val timestampTextView: TextView = itemView.findViewById(R.id.text_view_timestamp)
-        private val messageTextView: TextView = itemView.findViewById(R.id.text_view_log_message)
+        private val timestampTextView: TextView = itemView.findViewById(R.id.log_timestamp)
+        private val messageTextView: TextView = itemView.findViewById(R.id.log_text)
         private val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
 
         fun bind(logEntry: LogEntry) {
@@ -41,8 +41,11 @@ class LogsAdapter : ListAdapter<LogEntry, LogsAdapter.LogEntryViewHolder>(LogEnt
     private class LogEntryDiffCallback : DiffUtil.ItemCallback<LogEntry>() {
         override fun areItemsTheSame(oldItem: LogEntry, newItem: LogEntry): Boolean {
             return oldItem.id == newItem.id
+            // Assuming 'id' is a unique identifier for LogEntry
         }
 
+        // Check if the contents of the items are the same.
+        // This is called when areItemsTheSame returns true.
         override fun areContentsTheSame(oldItem: LogEntry, newItem: LogEntry): Boolean {
             return oldItem == newItem
         }
