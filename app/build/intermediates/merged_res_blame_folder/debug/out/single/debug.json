@@ -1,0 +1,50 @@
+[
+    {
+        "merged": "com.heimdall.chronolog.app-merged_res-50:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.heimdall.chronolog.app-main-52:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.heimdall.chronolog.app-merged_res-50:/drawable_ic_notification_bell.xml.flat",
+        "source": "com.heimdall.chronolog.app-main-52:/drawable/ic_notification_bell.xml"
+    },
+    {
+        "merged": "com.heimdall.chronolog.app-merged_res-50:/menu_main_menu.xml.flat",
+        "source": "com.heimdall.chronolog.app-main-52:/menu/main_menu.xml"
+    },
+    {
+        "merged": "com.heimdall.chronolog.app-merged_res-50:/layout_activity_settings.xml.flat",
+        "source": "com.heimdall.chronolog.app-main-52:/layout/activity_settings.xml"
+    },
+    {
+        "merged": "com.heimdall.chronolog.app-merged_res-50:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.heimdall.chronolog.app-main-52:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.heimdall.chronolog.app-merged_res-50:/xml_file_paths.xml.flat",
+        "source": "com.heimdall.chronolog.app-main-52:/xml/file_paths.xml"
+    },
+    {
+        "merged": "com.heimdall.chronolog.app-merged_res-50:/drawable_ic_settings.xml.flat",
+        "source": "com.heimdall.chronolog.app-main-52:/drawable/ic_settings.xml"
+    },
+    {
+        "merged": "com.heimdall.chronolog.app-merged_res-50:/drawable_ic_export.xml.flat",
+        "source": "com.heimdall.chronolog.app-main-52:/drawable/ic_export.xml"
+    },
+    {
+        "merged": "com.heimdall.chronolog.app-merged_res-50:/layout_item_log.xml.flat",
+        "source": "com.heimdall.chronolog.app-main-52:/layout/item_log.xml"
+    },
+    {
+        "merged": "com.heimdall.chronolog.app-merged_res-50:/drawable_ic_import.xml.flat",
+        "source": "com.heimdall.chronolog.app-main-52:/drawable/ic_import.xml"
+    },
+    {
+        "merged": "com.heimdall.chronolog.app-merged_res-50:/layout_activity_main.xml.flat",
+        "source": "com.heimdall.chronolog.app-main-52:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.heimdall.chronolog.app-merged_res-50:/layout_dialog_progress.xml.flat",
+        "source": "com.heimdall.chronolog.app-main-52:/layout/dialog_progress.xml"
+    }
+]

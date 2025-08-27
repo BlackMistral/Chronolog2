@@ -17,7 +17,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TrieNotify"
+        android:theme="@style/Theme.ChronoLog"
         tools:replace="android:allowBackup"
         tools:targetApi="31">
 
@@ -69,14 +69,4 @@
 
     </application>
 
-</manifest>```
-
-#### **Istruzioni Finali**
-
-1.  **Modifica il solo file `app/src/main/AndroidManifest.xml`** sul tuo repository.
-2.  **SELEZIONA TUTTO** il contenuto esistente e **CANCELLALO**.
-3.  **INCOLLA** il nuovo contenuto pulito che ti ho fornito qui sopra.
-4.  Fai il **"Commit"** della modifica.
-5.  Vai alla scheda **"Actions"**.
-
-Questa volta, il parser XML non troverà contenuto extra dopo il tag `</manifest>` e il task `processDebugMainManifest` avrà successo. Questo era l'ultimo errore di sintassi che ci bloccava.
+</manifest>
