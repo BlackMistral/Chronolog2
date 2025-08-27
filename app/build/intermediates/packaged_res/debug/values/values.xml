@@ -51,7 +51,7 @@
     <string name="notification_settings_title">Notification Settings</string>
     <string name="progress_dialog_loading">Loading...</string>
     <string name="settings_title">Settings</string>
-    <style name="Theme.ChronoLog" parent="Theme.Material3.Dark.NoActionBar">
+    <style name="Theme.ChronoLog" parent="Theme.MaterialComponents.DayNight">
         
         <item name="colorPrimary">@color/primary</item>
         <item name="colorOnPrimary">@color/onPrimary</item>

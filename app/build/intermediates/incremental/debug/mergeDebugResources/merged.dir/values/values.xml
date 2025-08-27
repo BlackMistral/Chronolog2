@@ -6405,7 +6405,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-    <style name="Theme.ChronoLog" parent="Theme.Material3.Dark.NoActionBar">
+    <style name="Theme.ChronoLog" parent="Theme.MaterialComponents.DayNight">
         
         <item name="colorPrimary">@color/primary</item>
         <item name="colorOnPrimary">@color/onPrimary</item>
