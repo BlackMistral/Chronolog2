@@ -1,10 +1,6 @@
 # ===================================================================
 # File: .github/workflows/android-build.yml
-# Revisione Finale Definitiva (Generazione Robusta del Wrapper in CI):
-# 1. IGNORA i file gradlew/wrapper locali.
-# 2. GENERA un wrapper completo e funzionante direttamente nell'ambiente
-#    di build usando il comando 'gradle wrapper'.
-# 3. UTILIZZA questo wrapper appena generato per la compilazione.
+# Revisione Finale Definitiva
 # ===================================================================
 name: Android CI Build
 
@@ -19,45 +15,35 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # 1. Scarica il codice del repository
-    - name: Checkout del codice
-      uses: actions/checkout@v4
+      - name: Checkout del codice
+        uses: actions/checkout@v4
 
-    # 2. Imposta l'ambiente Java (JDK 17)
-    - name: Impostazione di JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
+      - name: Impostazione di JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
 
-    # 3. Cache di Gradle (opzionale ma consigliata)
-    - name: Cache Gradle
-      uses: actions/cache@v3
-      with:
-        path: |
-          ~/.gradle/caches
-          ~/.gradle/wrapper
-        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+      - name: Cache Gradle
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
 
-    # 4. Genera un Gradle Wrapper completo e funzionante
-    # QUESTO È IL PASSO CHE RISOLVE TUTTO.
-    - name: Generate Gradle Wrapper
-      # Usiamo una versione di Gradle compatibile con i nostri file di build
-      run: gradle wrapper --gradle-version 8.2.1
+      - name: Generate Gradle Wrapper
+        run: gradle wrapper --gradle-version 8.2.1
 
-    # 5. Dare i permessi di esecuzione al Gradle Wrapper appena creato
-    - name: Dare i permessi a gradlew
-      run: chmod +x ./gradlew
+      - name: Dare i permessi a gradlew
+        run: chmod +x ./gradlew
 
-    # 6. Esegue la compilazione usando il wrapper appena generato
-    - name: Compilare con Gradle
-      run: ./gradlew build --stacktrace
+      - name: Compilare con Gradle
+        run: ./gradlew build --stacktrace
 
-    # 7. Salva l'APK generato per il download
-    - name: Caricare l'artefatto APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: app-debug-apk
-        if-no-files-found: error
-        path: app/build/outputs/apk/debug/app-debug.apk
-        
+      - name: Caricare l'artefatto APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug-apk
+          if-no-files-found: error
+          path: app/build/outputs/apk/debug/app-debug.apk
