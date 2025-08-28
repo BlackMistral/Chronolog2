@@ -22,8 +22,7 @@ import timber.log.Timber
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val mainViewModel: MainViewModel by viewModels {
- }
+    private val mainViewModel: MainViewModel by viewModels()
     private lateinit var logsAdapter: LogsAdapter
     private lateinit var uiStateTextView: TextView // Assuming a TextView to show UI state
 
