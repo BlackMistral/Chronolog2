@@ -1,7 +1,6 @@
 package com.heimdall.chronolog.di
 
 import android.content.Context
-import androidx.room.Room
 import com.heimdall.chronolog.data.AppDatabase
 import com.heimdall.chronolog.data.LogDao
 import dagger.Module
@@ -17,20 +16,13 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(@ApplicationContext appContext: Context): AppDatabase {
-        return Room.databaseBuilder(
-            appContext,
-            AppDatabase::class.java,
-            "chronolog_database"
-        )
-        // Add your database migrations here.
-        // For now, keeping the structure for MIGRATION_1_2 defined in AppDatabase
-        .addMigrations(AppDatabase.MIGRATION_1_2)
-        .build()
+    fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
+        return AppDatabase.getDatabase(context)
     }
 
     @Provides
-    fun provideLogDao(db: AppDatabase): LogDao {
-        return db.logDao()
+    @Singleton
+    fun provideLogDao(appDatabase: AppDatabase): LogDao {
+        return appDatabase.logDao()
     }
 }
