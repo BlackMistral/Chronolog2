@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
-    <background android:drawable="@color/ic_launcher_background"/>
-    <foreground android:drawable="@mipmap/ic_launcher_foreground"/>
+    <!-- Usa un colore che abbiamo definito in colors.xml come sfondo -->
+    <background android:drawable="@color/gray_900" />
+    <!-- Usa un'icona vettoriale che abbiamo definito in drawable come primo piano -->
+    <foreground android:drawable="@drawable/ic_notification_bell" />
 </adaptive-icon>
