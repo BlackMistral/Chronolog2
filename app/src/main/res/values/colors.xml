@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- 
-      Colori di base per il tema. 
-      Questi sono i nomi standard che il tema MaterialComponents si aspetta.
-    -->
-    
-    <!-- Colore primario dell'app (es. blu) -->
+    <!-- Colori di base per il tema -->
     <color name="colorPrimary">#3F51B5</color>
-    
-    <!-- Una variante più scura del colore primario (es. per la barra di stato) -->
     <color name="colorPrimaryVariant">#303F9F</color>
-
-    <!-- Colore secondario/accento (es. rosa) -->
     <color name="colorSecondary">#FF4081</color>
-    
-    <!-- Testo che appare sopra i colori primari/secondari -->
     <color name="colorOnPrimary">#FFFFFF</color>
     <color name="colorOnSecondary">#000000</color>
 
-    <!-- Colori standard di testo e sfondi -->
+    <!-- Colori standard -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!--
+      COLORI GRIGI MANCANTI
+      Aggiunti per risolvere l'errore di linking delle risorse.
+    -->
+    <color name="gray_200">#EEEEEE</color>
+    <color name="gray_700">#616161</color>
+    <color name="gray_900">#212121</color>
+
 </resources>
