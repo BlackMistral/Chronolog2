@@ -6,11 +6,10 @@ import dagger.hilt.android.HiltAndroidApp
 
 /**
  * Classe Application personalizzata.
- * È il punto di ingresso dell'app e viene usata per inizializzare
- * librerie a livello di applicazione come Hilt e Timber.
  *
  * L'annotazione @HiltAndroidApp è FONDAMENTALE. Attiva la generazione
- * del codice di Hilt per l'intera applicazione.
+ * del codice di Hilt e definisce questa classe come punto di ingresso
+ * per la dependency injection.
  */
 @HiltAndroidApp
 class ChronoLogApp : Application() {
