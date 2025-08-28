@@ -40,3 +40,4 @@ jobs:
         name: app-debug-apk
         if-no-files-found: error
         path: app/build/outputs/apk/debug/app-debug.apk
+
