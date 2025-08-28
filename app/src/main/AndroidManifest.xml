@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Permessi necessari per l'app -->
+    <!-- Permessi -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
@@ -20,7 +20,7 @@
         android:theme="@style/Theme.ChronoLog"
         tools:targetApi="31">
 
-        <!-- Activity Principale -->
+        <!-- Activities -->
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
@@ -32,19 +32,16 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data
-                    android:mimeType="application/octet-stream"
-                    android:scheme="content" />
+                <data android:scheme="content" android:mimeType="application/octet-stream" />
             </intent-filter>
         </activity>
 
-        <!-- Activity Impostazioni -->
         <activity
             android:name=".ui.SettingsActivity"
             android:exported="false"
             android:label="Impostazioni" />
 
-        <!-- Servizio di Cattura Notifiche -->
+        <!-- Servizio -->
         <service
             android:name=".core.NotificationCaptureService"
             android:exported="true"
@@ -55,7 +52,7 @@
             </intent-filter>
         </service>
 
-        <!-- Provider per la Condivisione Sicura di File -->
+        <!-- File Provider -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.heimdall.chronolog.fileprovider"
@@ -63,7 +60,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/xml/file_paths" /> <!-- Corretto il percorso per coerenza -->
+                android:resource="@xml/file_paths" />
         </provider>
 
     </application>
