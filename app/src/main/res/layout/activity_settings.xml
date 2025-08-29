@@ -1,50 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
     tools:context=".SettingsActivity">
 
-    <TextView
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Settings"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:gravity="center"
-        android:paddingBottom="16dp"/>
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-    <!-- Placeholder for settings options -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Notification Settings"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <Switch
-        android:id="@+id/switch_notification"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Enable Notifications"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Notification Settings"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Data Management"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+        <Switch
+            android:id="@+id/switch_notification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enable Notifications" />
 
-    <Button
-        android:id="@+id/button_export"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Export Logs"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Data Management"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-    <Button
-        android:id="@+id/button_import"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Import Logs"/>
+        <Button
+            android:id="@+id/button_export"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Export Logs" />
+
+        <Button
+            android:id="@+id/button_import"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Import Logs" />
+
+    </LinearLayout>
+
 
 </LinearLayout>

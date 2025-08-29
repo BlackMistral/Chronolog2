@@ -5,9 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.heimdall.chronolog.util.DateConverter
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.heimdall.chronolog.util.DateConverter
 import javax.inject.Singleton
 
 @Singleton // Mark as Singleton for Hilt
@@ -17,6 +17,8 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun logDao(): LogDao
 
+ @Volatile
+ private var INSTANCE: AppDatabase? = null
     companion object {
         // TODO: Implement your Room Migrations here.
         // Example migration from version 1 to 2:
@@ -29,5 +31,22 @@ abstract class AppDatabase : RoomDatabase() {
                 // https://developer.android.com/training/data-storage/room/migrations
             }
         }
+
+ fun getDatabase(context: Context): AppDatabase {
+ // if the INSTANCE is not null, then return it,
+ // if it is, then create the database
+ return INSTANCE ?: synchronized(this) {
+ val instance = Room.databaseBuilder(
+ context.applicationContext,
+ AppDatabase::class.java,
+ "chronolog_database"
+ )
+ //.addMigrations(MIGRATION_1_2) // Add your migrations here
+ .build()
+ INSTANCE = instance
+ // return instance
+ return instance
+ }
+ }
     }
 }

@@ -11,12 +11,8 @@ import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
-import org.json.JSONArray
 import org.json.JSONObject
 import timber.log.Timber
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.security.MessageDigest
 import com.heimdall.chronolog.core.HashUtils // Import HashUtils
 import java.text.SimpleDateFormat
 import java.util.*
@@ -26,7 +22,8 @@ class PeriodicExportWorker @AssistedInject constructor(
     @Assisted appContext: Context,
     @Assisted workerParams: WorkerParameters,
     private val repository: Repository,
- private val googleDriveBackupManager: GoogleDriveBackupManager // Inject GoogleDriveBackupManager
+ private val googleDriveBackupManager: GoogleDriveBackupManager,
+ private val hashUtils: HashUtils
 ) : CoroutineWorker(appContext, workerParams) {
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {

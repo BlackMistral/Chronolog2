@@ -1,9 +1,10 @@
 package com.heimdall.chronolog.core
 
 import java.security.MessageDigest
+import javax.inject.Inject
 
-object HashUtils {
-
+class HashUtils @Inject constructor() {
+ 
     /**
      * Generates the SHA-256 hash of a given string.
      *
