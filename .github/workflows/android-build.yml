@@ -1,9 +1,3 @@
-# ===================================================================
-# File: .github/workflows/android-build.yml
-# Revisione Finale (Build Pulita Forzata):
-# - Rimuove l'azione 'actions/cache' per evitare problemi di cache corrotta.
-# - Aggiunge un passo esplicito per pulire la cache di Gradle prima della build.
-# ===================================================================
 name: Android CI Build
 
 on:
@@ -25,13 +19,10 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
+        cache: 'gradle'
 
     - name: Dare i permessi a gradlew
       run: chmod +x ./gradlew
-
-    # === PASSO DI PULIZIA AGGIUNTO ===
-    - name: Pulisci Build Precedenti (Clean)
-      run: ./gradlew clean --stacktrace
 
     - name: Compilare con Gradle
       run: ./gradlew build --stacktrace
@@ -40,6 +31,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: app-debug-apk
-        if-no-files-found: error
         path: app/build/outputs/apk/debug/app-debug.apk
-
